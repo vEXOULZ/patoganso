@@ -1,0 +1,23 @@
+name: dot_exe
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Compile exe
+      run: g++ -g "${{ github.repository }}\src\main.cpp" -o "${{ github.repository }}\bin\main.exe" 
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: executable
+        path: |
+          bin/main.exe
