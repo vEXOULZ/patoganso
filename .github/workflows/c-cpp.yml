@@ -8,9 +8,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Compile exe
@@ -18,6 +16,18 @@ jobs:
     - name: Archive production artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: executable
+        name: executable-linux
+        path: |
+          bin/main.exe
+  build-win:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Compile exe
+      run: g++ -g "src/main.cpp" -o "bin/main.exe" 
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: executable-windows
         path: |
           bin/main.exe
